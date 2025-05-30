@@ -12,11 +12,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { Link, useNavigate } from "react-router";
 
-const pages = ["Bar Chart", "Table"];
+const pages = [
+  { name: "Bar Chart", link: "/" },
+  { name: "Table", link: "table" },
+];
 const settings = ["add entry", "logout"];
 
 function AppMenu() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -31,6 +36,11 @@ function AppMenu() {
     setAnchorElUser(event.currentTarget);
   };
 
+  const choosePage = (pageLink: string) => {
+    handleCloseNavMenu();
+    navigate(pageLink);
+  };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -40,15 +50,15 @@ function AppMenu() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ marginBottom: "3rem" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <BarChartIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -61,7 +71,6 @@ function AppMenu() {
           >
             Traffic Stats
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -90,8 +99,10 @@ function AppMenu() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                <MenuItem key={page.name} onClick={() => choosePage(page.link)}>
+                  <Typography sx={{ textAlign: "center" }}>
+                    {page.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -100,8 +111,8 @@ function AppMenu() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -118,11 +129,11 @@ function AppMenu() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.name}
+                onClick={() => choosePage(page.link)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
