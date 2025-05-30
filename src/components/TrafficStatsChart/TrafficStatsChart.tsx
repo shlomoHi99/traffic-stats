@@ -1,7 +1,11 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { trafficStats } from "../../assets/trafficStats";
+import { TrafficStatsType } from "../../assets/trafficStats";
 
-const TrafficStatsChart = () => {
+const TrafficStatsChart = ({
+  trafficStats,
+}: {
+  trafficStats: TrafficStatsType;
+}) => {
   return (
     <BarChart
       dataset={trafficStats}

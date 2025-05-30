@@ -1,3 +1,8 @@
+export type TrafficStatsType = {
+  date: string;
+  visits: number;
+}[];
+
 export const trafficStats = [
   { date: "2025-03-01", visits: 120 },
   { date: "2025-03-02", visits: 140 },
