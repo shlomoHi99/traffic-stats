@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import * as React from "react";
 import { TableComponents, TableVirtuoso } from "react-virtuoso";
-import { TrafficStatsType } from "../../assets/trafficStats";
+import { TrafficStatType } from "../../assets/trafficStats";
 
 interface Data {
   date: string;
@@ -89,10 +89,10 @@ function rowContent(_index: number, row: Data) {
 export default function TrafficStatsTable({
   trafficStats,
 }: {
-  trafficStats: TrafficStatsType;
+  trafficStats: TrafficStatType[];
 }) {
   return (
-    <Paper style={{ height: 500, width: "100%" }}>
+    <Paper style={{ height: 400, width: "100%" }}>
       <TableVirtuoso
         data={trafficStats}
         components={VirtuosoTableComponents}

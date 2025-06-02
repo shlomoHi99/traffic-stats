@@ -11,23 +11,20 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import AddEntry from "../AddEntry/AddEntry";
 
 const pages = [
   { name: "Bar Chart", link: "/" },
   { name: "Table", link: "table" },
 ];
-const settings = ["add entry", "logout"];
 
 function AppMenu() {
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [isAddEntryPopupOpen, setAddEntryPopupOpen] = useState<boolean>(false);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +32,16 @@ function AppMenu() {
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
+
+  const settings = [
+    {
+      text: "add entry",
+      onClick: () => {
+        setAddEntryPopupOpen(true);
+      },
+    },
+    { text: "logout", onClick: () => {} },
+  ];
 
   const choosePage = (pageLink: string) => {
     handleCloseNavMenu();
@@ -47,6 +54,11 @@ function AppMenu() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const chooseSetting = (settingAction: () => void) => {
+    settingAction();
+    handleCloseUserMenu();
   };
 
   return (
@@ -160,9 +172,12 @@ function AppMenu() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting.text}
+                  onClick={() => chooseSetting(setting.onClick)}
+                >
                   <Typography sx={{ textAlign: "center" }}>
-                    {setting}
+                    {setting.text}
                   </Typography>
                 </MenuItem>
               ))}
@@ -170,6 +185,9 @@ function AppMenu() {
           </Box>
         </Toolbar>
       </Container>
+      {isAddEntryPopupOpen && (
+        <AddEntry isOpen={isAddEntryPopupOpen} setOpen={setAddEntryPopupOpen} />
+      )}
     </AppBar>
   );
 }

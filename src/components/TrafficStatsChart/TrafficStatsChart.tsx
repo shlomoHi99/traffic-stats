@@ -1,10 +1,10 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { TrafficStatsType } from "../../assets/trafficStats";
+import { TrafficStatType } from "../../assets/trafficStats";
 
 const TrafficStatsChart = ({
   trafficStats,
 }: {
-  trafficStats: TrafficStatsType;
+  trafficStats: TrafficStatType[];
 }) => {
   return (
     <BarChart
@@ -20,7 +20,7 @@ const TrafficStatsChart = ({
           label: "visits",
         },
       ]}
-      height={500}
+      height={400}
     />
   );
 };
