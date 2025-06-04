@@ -53,7 +53,7 @@ export function TrafficStatsProvider({ children }: PropsWithChildren) {
     if (!trafficStatsState.some((stat) => stat.date === date))
       return "date was not found";
     setTrafficStatsState((oldState) =>
-      oldState.filter((stat) => stat.date === date)
+      oldState.filter((stat) => stat.date !== date)
     );
     return "entry has been deleted";
   };

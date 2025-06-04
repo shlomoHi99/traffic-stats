@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import AddEntry from "../AddEntry/AddEntry";
+import MutateEntry from "../MutateEntry/MutateEntry";
 
 const pages = [
   { name: "Bar Chart", link: "/" },
@@ -186,7 +186,11 @@ function AppMenu() {
         </Toolbar>
       </Container>
       {isAddEntryPopupOpen && (
-        <AddEntry isOpen={isAddEntryPopupOpen} setOpen={setAddEntryPopupOpen} />
+        <MutateEntry
+          type="add"
+          isOpen={isAddEntryPopupOpen}
+          setOpen={setAddEntryPopupOpen}
+        />
       )}
     </AppBar>
   );

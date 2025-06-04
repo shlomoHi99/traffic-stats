@@ -42,7 +42,7 @@ export default function PopUp({
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>{cancelButtonText}</Button>
-        <Button type="submit">{submitButtonText}</Button>
+        {submitButtonText && <Button type="submit">{submitButtonText}</Button>}
       </DialogActions>
     </Dialog>
   );
