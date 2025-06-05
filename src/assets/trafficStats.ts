@@ -1,9 +1,11 @@
-export type TrafficStatsType = {
-  date: string;
-  visits: number;
-}[];
+export type TrafficStatDate = `${number}-${number}-${number}`;
 
-export const trafficStats = [
+export type TrafficStatType = {
+  date: TrafficStatDate;
+  visits: number;
+};
+
+export const trafficStats: TrafficStatType[] = [
   { date: "2025-03-01", visits: 120 },
   { date: "2025-03-02", visits: 140 },
   { date: "2025-03-03", visits: 98 },
