@@ -1,9 +1,10 @@
-import { Button, TextField } from "@mui/material";
+import { Button, ButtonGroup, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs, { Dayjs } from "dayjs";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
+import { TrafficStatDate } from "../../assets/trafficStats";
 import { useTrafficStats } from "../../contexts/TrafficStatsContext";
 import PopUp from "../PopUp/PopUp";
 
@@ -11,11 +12,11 @@ type MutateEntryProps = {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   type: MutateEntryType;
-  oldDate?: string;
+  oldDate?: TrafficStatDate;
   oldVisits?: number;
 };
 
-type MutateEntryType = "add" | "edit" | "delete" | "editOrDelete";
+export type MutateEntryType = "add" | "edit" | "delete" | "editOrDelete";
 
 const mutateConfig: Record<
   MutateEntryType,
@@ -52,7 +53,7 @@ const MutateEntry = ({
     if (mutateType === "delete") message = deleteEntry(oldDate!);
     else {
       if (!date) return;
-      message = addEntry(date.format("YYYY-MM-DD"), visits);
+      message = addEntry(date.format("YYYY-MM-DD") as TrafficStatDate, visits);
     }
     setOpen(false);
     enqueueSnackbar(message, { variant: "success" });
@@ -90,10 +91,10 @@ const MutateEntry = ({
         </DemoContainer>
       )}
       {mutateType === "editOrDelete" && (
-        <>
+        <ButtonGroup>
           <Button onClick={() => setMutateType("edit")}>update</Button>
           <Button onClick={() => setMutateType("delete")}>delete</Button>
-        </>
+        </ButtonGroup>
       )}
     </PopUp>
   );

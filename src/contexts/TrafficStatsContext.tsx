@@ -5,22 +5,26 @@ import {
   useMemo,
   useState,
 } from "react";
-import { trafficStats, TrafficStatType } from "../assets/trafficStats";
+import {
+  TrafficStatDate,
+  trafficStats,
+  TrafficStatType,
+} from "../assets/trafficStats";
 import { compareDates } from "../helpers/sortByDate";
 import { isValidDate } from "../helpers/validateDate";
 
 const TrafficStatsContext = createContext<{
   trafficStatsState: TrafficStatType[];
-  addEntry: (date: string, visits: number) => string;
-  editEntry: (date: string, visits: number) => string;
-  deleteEntry: (date: string) => string;
+  addEntry: (date: TrafficStatDate, visits: number) => string;
+  editEntry: (date: TrafficStatDate, visits: number) => string;
+  deleteEntry: (date: TrafficStatDate) => string;
 } | null>(null);
 
 export function TrafficStatsProvider({ children }: PropsWithChildren) {
   const [trafficStatsState, setTrafficStatsState] =
     useState<TrafficStatType[]>(trafficStats);
 
-  const editEntry = (date: string, visits: number) => {
+  const editEntry = (date: TrafficStatDate, visits: number) => {
     if (
       !isValidDate(date) ||
       !trafficStatsState.some((stat) => stat.date === date)
@@ -37,7 +41,7 @@ export function TrafficStatsProvider({ children }: PropsWithChildren) {
     return "entry was edited";
   };
 
-  const addEntry = (date: string, visits: number = 0) => {
+  const addEntry = (date: TrafficStatDate, visits: number = 0) => {
     if (!isValidDate(date)) return "date is invalid";
     if (trafficStatsState.some((stat) => stat.date === date))
       return editEntry(date, visits);
@@ -48,7 +52,7 @@ export function TrafficStatsProvider({ children }: PropsWithChildren) {
     return `on ${date} there were ${visits} visits`;
   };
 
-  const deleteEntry = (date: string) => {
+  const deleteEntry = (date: TrafficStatDate) => {
     if (!isValidDate(date)) return "date is invalid";
     if (!trafficStatsState.some((stat) => stat.date === date))
       return "date was not found";
